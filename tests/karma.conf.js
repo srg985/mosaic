@@ -57,7 +57,6 @@ module.exports = (config) => {
             ]
         },
 
-
         browserDisconnectTimeout: 20000,
         browserNoActivityTimeout: 240000,
         captureTimeout: 120000,
