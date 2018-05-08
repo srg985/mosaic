@@ -40,7 +40,7 @@ module.exports = (config) => {
             'dist/packages/**/*.js': ['sourcemap']
         },
 
-        reporters: ['dots'],
+        reporters: ['dots', 'coverage'],
 
         port: 9876,
         colors: true,
