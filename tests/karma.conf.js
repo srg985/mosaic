@@ -50,9 +50,10 @@ module.exports = (config) => {
 
         coverageReporter: {
             dir : 'dist/coverage/',
-            subdir: '.',
             reporters: [
-                { type: 'lcov' }
+                { type: 'lcov' },
+                { type: 'json' },
+                { type: 'text-summary' }
             ]
         },
 
