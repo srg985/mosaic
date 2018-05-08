@@ -46,7 +46,7 @@ jobs:
           paths:
             - node_modules
       - run: npm run test:unit
-      - run: ./node_modules/.bin/codecov --token=$CODECOV_TOKEN
+      - run: ./node_modules/.bin/codecov
 
   deploy:
     <<: *job_defaults
