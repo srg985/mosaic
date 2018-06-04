@@ -57,6 +57,7 @@ System.config({
         '@ptsecurity/cdk/platform': 'dist/packages/cdk/platform/index.js',
         '@ptsecurity/cdk/testing': 'dist/packages/cdk/testing/index.js',
 
+        '@ptsecurity/mosaic/badge': 'dist/packages/mosaic/badge/index.js',
         '@ptsecurity/mosaic/button': 'dist/packages/mosaic/button/index.js',
         '@ptsecurity/mosaic/core': 'dist/packages/mosaic/core/index.js',
         '@ptsecurity/mosaic/divider': 'dist/packages/mosaic/divider/index.js',
