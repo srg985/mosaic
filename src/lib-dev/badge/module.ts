@@ -1,4 +1,4 @@
-import {Component, NgModule} from "@angular/core";
+import {Component, NgModule, ViewEncapsulation} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 
@@ -11,6 +11,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 @Component({
     selector: 'app',
     styleUrls: ['./styles.scss'],
+    encapsulation: ViewEncapsulation.None,
     template: require('./template.html')
 })
 class BadgeDemoComponent {
