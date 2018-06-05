@@ -1,4 +1,169 @@
-
 @import '../core/theming/palette';
 @import '../core/theming/theming';
 @import '../core/styles/typography/typography-utils';
+
+
+$mc-badge-default-size: 22px !default;
+$mc-badge-small-size: $mc-badge-default-size - 6;
+$mc-badge-large-size: $mc-badge-default-size + 6;
+
+
+@mixin _mc-badge-size($size) {
+
+    .mc-badge-content {
+        width: $size;
+        height: $size;
+        line-height: $size;
+    }
+
+    &.mc-badge-above {
+        .mc-badge-content {
+            top: -$size / 2;
+        }
+    }
+
+    &.mc-badge-below {
+        .mc-badge-content {
+            bottom: -$size / 2;
+        }
+    }
+
+    &.mc-badge-before {
+        margin-left: $size;
+
+        .mc-badge-content {
+            left: -$size;
+        }
+    }
+
+    [dir='rtl'] &.mc-badge-before {
+        margin-left: 0;
+        margin-right: $size;
+
+        .mc-badge-content {
+            left: auto;
+            right: -$size;
+        }
+    }
+
+    &.mc-badge-after {
+        margin-right: $size;
+
+        .mc-badge-content {
+            right: -$size;
+        }
+    }
+
+    [dir='rtl'] &.mc-badge-after {
+        margin-right: 0;
+        margin-left: $size;
+
+        .mc-badge-content {
+            right: auto;
+            left: -$size;
+        }
+    }
+
+    &.mc-badge-overlap {
+        &.mc-badge-before {
+            margin-left: $size / 2;
+
+            .mc-badge-content {
+                left: -$size / 2;
+            }
+        }
+
+        [dir='rtl'] &.mc-badge-before {
+            margin-left: 0;
+            margin-right: $size / 2;
+
+            .mc-badge-content {
+                left: auto;
+                right: -$size / 2;
+            }
+        }
+
+        &.mc-badge-after {
+            margin-right: $size / 2;
+
+            .mc-badge-content {
+                right: -$size / 2;
+            }
+        }
+
+        [dir='rtl'] &.mc-badge-after {
+            margin-right: 0;
+            margin-left: $size;
+
+            .mc-badge-content {
+                right: auto;
+                left: -$size / 2;
+            }
+        }
+    }
+}
+
+@mixin mc-badge-theme($theme) {
+    $primary: map-get($theme, primary);
+    $second: map-get($theme, second);
+    $warn: map-get($theme, warn);
+
+    .mc-badge-content {
+        color: mc-color($primary, default-contrast);
+        background: mc-color($primary);
+    }
+
+    .mc-badge-second {
+        .mc-badge-content {
+            background: mc-color($second);
+            color: mc-color($second, default-contrast);
+        }
+    }
+
+    .mc-badge-warn {
+        .mc-badge-content {
+            color: mc-color($warn, default-contrast);
+            background: mc-color($warn);
+        }
+    }
+
+    .mc-badge {
+        position: relative;
+    }
+
+    .mc-badge-hidden {
+        .mc-badge-content {
+            display: none;
+        }
+    }
+
+    .mc-badge-content {
+        position: absolute;
+        text-align: center;
+        display: inline-block;
+        border-radius: 50%;
+        transition: transform 200ms ease-in-out;
+        transform: scale(0.6);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        pointer-events: none;
+    }
+
+    // The active class is added after the element is added
+    // so it can animate scale to default
+    .mc-badge-content.mc-badge-active {
+        // Scale to `none` instead of `1` to avoid blurry text in some browsers.
+        transform: none;
+    }
+
+    .mc-badge-small {
+        @include _mc-badge-size($mc-badge-small-size);
+    }
+    .mc-badge-medium {
+        @include _mc-badge-size($mc-badge-default-size);
+    }
+    .mc-badge-large {
+        @include _mc-badge-size($mc-badge-large-size);
+    }
+}

@@ -1,6 +1,7 @@
 // Import all the theming
 @import '../core';
 @import '../../button/button-theme';
+@import '../../badge/badge-theme';
 @import '../../list/list-theme';
 @import '../../radio/radio-theme';
 
@@ -8,6 +9,7 @@
 @mixin mosaic-theme($theme) {
 
     @include mc-button-theme($theme);
+    @include mc-badge-theme($theme);
     @include mc-list-theme($theme);
     @include mc-radio-theme($theme);
 }

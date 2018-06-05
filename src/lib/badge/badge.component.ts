@@ -27,9 +27,6 @@ export type McBadgeSize = 'small' | 'medium' | 'large';
 })
 export class McBadge {
 
-    /** Unique id for the badge */
-    _id: number = nextId++;
-
     /** Size of the badge. Can be 'small', 'medium', or 'large'. */
     @Input('mcBadgeSize') size: McBadgeSize = 'medium';
 
@@ -89,6 +86,10 @@ export class McBadge {
     }
 
     private _hidden: boolean;
+
+
+    /** Unique id for the badge */
+    _id: number = nextId++;
 
     private _badgeElement: HTMLElement;
 
