@@ -681,24 +681,31 @@ export class McTimepicker extends McTimepickerMixinBase
     }
 
     private _minTimeValidator(): ValidationErrors | null {
-        return (this._currentDTimeInput !== undefined && this._minDTime !== undefined &&
-            this._isTimeLowerThenMin(this._currentDTimeInput)) ?
-            { mcTimepickerLowerThenMintime: { text: this._elementRef.nativeElement.value } } :
-            null;
+
+        if (this._currentDTimeInput !== undefined &&
+            this._minDTime !== undefined &&
+            this._isTimeLowerThenMin(this._currentDTimeInput)) {
+            return { mcTimepickerLowerThenMintime: { text: this._elementRef.nativeElement.value } };
+        }
+
+        return null;
     }
 
     private _maxTimeValidator(): ValidationErrors | null {
-        return (this._currentDTimeInput !== undefined && this.maxTime !== null &&
-            this._isTimeGreaterThenMax(this._currentDTimeInput)) ?
-            { mcTimepickerHigherThenMaxtime: { text: this._elementRef.nativeElement.value } } :
-            null;
+        if (this._currentDTimeInput !== undefined &&
+            this._maxDTime !== undefined &&
+            this._isTimeGreaterThenMax(this._currentDTimeInput)) {
+            return { mcTimepickerHigherThenMaxtime: { text: this._elementRef.nativeElement.value } };
+        }
+
+        return null;
     }
 
     private _isTimeLowerThenMin(timeToCompare: Date): boolean {
         return timeToCompare.getTime() - (<Date> this._minDTime).getTime() < 0;
     }
 
-    private _isTimeGreaterThenMax(compareWithTime: Date): boolean {
-        return compareWithTime.getTime() - (<Date> this._maxDTime).getTime() >= 0;
+    private _isTimeGreaterThenMax(timeToCompare: Date): boolean {
+        return timeToCompare.getTime() - (<Date> this._maxDTime).getTime() >= 0;
     }
 }
