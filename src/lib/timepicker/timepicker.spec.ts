@@ -58,6 +58,29 @@ describe('McTimepicker', () => {
     let testComponent: TestApp;
     let inputElementDebug;
 
+    it('Timepicker disabled state switching on/off', () => {
+        fixture = TestBed.createComponent(TestApp);
+        testComponent = fixture.debugElement.componentInstance;
+        inputElementDebug = fixture.debugElement.query(By.directive(McTimepicker));
+
+        testComponent.isDisabled = true;
+        fixture.detectChanges();
+
+        return fixture.whenStable()
+            .then(() => {
+                fixture.detectChanges();
+                expect(inputElementDebug.nativeElement.disabled).toBe(true, 'input not disabled');
+                testComponent.isDisabled = false;
+                fixture.detectChanges();
+
+                return fixture.whenStable();
+            })
+            .then(() => {
+                fixture.detectChanges();
+                expect(inputElementDebug.nativeElement.disabled).toBe(false, 'input not disabled');
+            });
+    });
+
     describe('Timerange validation', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(TestApp);
