@@ -129,6 +129,62 @@ describe('McTimepicker', () => {
         });
     });
 
+    describe('Display time corresponding to timeformat', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(TestApp);
+            testComponent = fixture.debugElement.componentInstance;
+            inputElementDebug = fixture.debugElement.query(By.directive(McTimepicker));
+
+            testComponent.timeValue = new Date('1970-01-01 12:18:28');
+            fixture.detectChanges();
+        });
+
+        it('Using HH:mm:ss', () => {
+            testComponent.timeFormat = 'HH:mm:ss';
+            fixture.detectChanges();
+
+            return fixture.whenStable()
+                .then(() => {
+                    fixture.detectChanges();
+                    expect(inputElementDebug.nativeElement.value).toBe('12:18:28', 'mismatch time format');
+                });
+        });
+
+        it('Using HH:mm', () => {
+            testComponent.timeFormat = 'HH:mm';
+            fixture.detectChanges();
+
+            return fixture.whenStable()
+                .then(() => {
+                    fixture.detectChanges();
+                    expect(inputElementDebug.nativeElement.value).toBe('12:18', 'mismatch time format');
+                });
+        });
+
+        it('Using default format', () => {
+            fixture.detectChanges();
+
+            return fixture.whenStable()
+                .then(() => {
+                    fixture.detectChanges();
+                    expect(inputElementDebug.nativeElement.value).toBe('12:18', 'mismatch default time format');
+                });
+        });
+
+        it('Using unknown/error/unsupported format', () => {
+            testComponent.timeFormat = 'Hourglass';
+            fixture.detectChanges();
+
+            return fixture.whenStable()
+                .then(() => {
+                    fixture.detectChanges();
+                    expect(inputElementDebug.nativeElement.value).toBe(
+                        '12:18',
+                        'broken fallback to default time format');
+                });
+        });
+    });
+
     describe('Convert user input', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(TestApp);
@@ -207,6 +263,6 @@ describe('McTimepicker', () => {
                 expect(2).toBe(2);
             });
 
-        })
+        });
     });
 });
