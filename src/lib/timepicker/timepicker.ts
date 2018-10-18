@@ -185,7 +185,7 @@ export class McTimepicker extends McTimepickerMixinBase
     set value(value: string) {
         if (value !== this.value) {
             this._inputValueAccessor.value = value;
-            this.stateChanges.next();
+            this._applyInputChanges();
         }
     }
 
@@ -368,7 +368,7 @@ export class McTimepicker extends McTimepickerMixinBase
             );
         }
         this._onChange(value || null);
-        this.stateChanges.next();
+        this._applyInputChanges();
     }
 
     onKeyDown(event: KeyboardEvent): void {
