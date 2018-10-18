@@ -12,6 +12,8 @@ import { McFormFieldModule } from '@ptsecurity/mosaic/form-field';
 import { McIconModule } from '@ptsecurity/mosaic/icon';
 
 import {
+    ARROW_DOWN_KEYCODE,
+    ARROW_UP_KEYCODE,
     McTimepicker,
     McTimepickerModule
 } from './index';
@@ -253,16 +255,42 @@ describe('McTimepicker', () => {
             testComponent = fixture.debugElement.componentInstance;
             inputElementDebug = fixture.debugElement.query(By.directive(McTimepicker));
 
-            testComponent.timeValue = new Date('1970-01-01 08:08:08');
+            testComponent.timeValue = new Date('1970-01-01 23:00:08');
+            testComponent.timeFormat = 'HH:mm';
             fixture.detectChanges();
         });
 
-        it('Increase hours by ArrowUp', () => {
-            // TODO Code test
-            return fixture.whenStable().then(() => {
-                expect(2).toBe(2);
-            });
+        it('Increase hours by ArrowUp key and cycle from max to min', () => {
+            return fixture.whenStable()
+                .then(() => {
+                    inputElementDebug.nativeElement.selectionStart = 1;
+                    inputElementDebug.triggerEventHandler(
+                        'keydown',
+                        {
+                            preventDefault: () => null,
+                            code: ARROW_UP_KEYCODE
+                        }
+                    );
+                    fixture.detectChanges();
+                    expect(inputElementDebug.nativeElement.value).toBe('00:00', 'Arrow-Up key increment not working');
+                });
 
+        });
+
+        it('Decrease minutes by ArrowDown key and cycle from min to max', () => {
+            return fixture.whenStable()
+                .then(() => {
+                    inputElementDebug.nativeElement.selectionStart = 3;
+                    inputElementDebug.triggerEventHandler(
+                        'keydown',
+                        {
+                            preventDefault: () => null,
+                            code: ARROW_DOWN_KEYCODE
+                        }
+                    );
+                    fixture.detectChanges();
+                    expect(inputElementDebug.nativeElement.value).toBe('23:59', 'Arrow-Down key decrement not working');
+                });
         });
     });
 });
